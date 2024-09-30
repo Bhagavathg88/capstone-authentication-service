@@ -15,7 +15,7 @@ import java.util.List;
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
-
+    private final KafkaProducerService kafkaProducerService;
 
     public Payments processPayment(Payment payment) {
         PaymentManager paymentManager = new PaymentManager();
@@ -25,6 +25,7 @@ public class PaymentService {
         } else {
             payments.setPaymentStatus("FAILED");
         }
+        kafkaProducerService.sendMessage("payment-events", payments);
         return paymentRepository.save(payments);
     }
 
