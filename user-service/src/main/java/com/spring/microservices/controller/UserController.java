@@ -3,10 +3,7 @@ package com.spring.microservices.controller;
 import com.spring.microservices.model.User;
 import com.spring.microservices.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User retrieveUser(@RequestBody String id){
+    public User retrieveUser(@PathVariable String id){
         return userService.retrieveUser(id);
     }
 }
