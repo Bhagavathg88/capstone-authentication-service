@@ -1,0 +1,47 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product-service
+          uri: lb://PRODUCTSERVICE
+          predicates:
+            - Path=/products/**
+        - id: order-service
+          uri: lb://ORDERSERVICE
+          predicates:
+            - Path=/orders/**,/order/**
+        - id: customer-service
+          uri: lb://USERSERVICE
+          predicates:
+            - Path=/users/**, /user/**,/userOrders/**,/userOrder/**
+        - id: inventory-service
+          uri: lb://INVENTORYSERVICE
+          predicates:
+            - Path=/inventories/**, /inventory/**
+        - id: payment-service
+          uri: lb://PAYMENTSERVICE
+          predicates:
+            - Path=/payment/**, /payments/**
+
+  application:
+    name: api-gateway-service
+  framework:
+    logging:
+      pattern:
+        level: debug
+        console: "%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+
+
+server:
+  port: 8095
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+
+

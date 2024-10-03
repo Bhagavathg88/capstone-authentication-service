@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bhag1988/api-gateway-service:v1.0
+    container_name: api-gateway-service_container
+    ports:
+      - "8099:8099"
+    networks:
+      - capstone-project
+
+networks:
+  capstone-project:
